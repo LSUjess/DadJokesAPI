@@ -1,0 +1,65 @@
+﻿@using DadJokesAPI.Models
+@model IEnumerable<DadJokesAPI.Models.Joke>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Getting started</h2>
+        <p>
+            There should be two options the user can choose from: </br>
+            1. Accept a search term and display the first 30 jokes containing that term.</br>
+            2. Select a Random joke.</br>
+        </p>
+
+        <input type="text" id="txtSearchTerm" />
+
+        <input type="button"
+               value="Search"
+               onclick="location.href='@Url.Action("SearchJokes", "Home")?searchTerm=' + document.getElementById('txtSearchTerm').value" />
+
+        <input type="button" value="Random Joke" onclick="location.href='@Url.Action("RandomJoke", "Home")'" />
+    </div>
+    <br />
+</div>
+<div class="col-md-12">
+    <p>
+        <h3>@ViewBag.Message</h3>
+
+        <h3>@ViewBag.Count</h3>
+    </p>
+
+    <h2>In your best dad voice...</h2>
+
+    <table class="table is-striped">
+        @foreach (Joke joke in Model)
+        {
+        <tr>
+            @*<td>@joke.Id</td>*@
+
+            @*<td>@joke.wordCount</td>*@
+
+            @if (joke.wordCount < 10)
+            {
+                <td><pre style="background-color: inherit; white-space: pre-wrap">Short</pre></td>
+            }
+            else if (joke.wordCount < 20)
+            {
+                <td><pre style="background-color: inherit; white-space: pre-wrap">Medium</pre></td>
+            }
+            else
+            {
+                <td><pre style="background-color: inherit; white-space: pre-wrap">Long</pre></td>
+            }
+
+            <td>
+                <pre style="background-color: inherit; white-space: pre-wrap">@joke.joke</pre>
+            </td>
+        </tr>
+        }
+    </table>
+
+</div>
+
